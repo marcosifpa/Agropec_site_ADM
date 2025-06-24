@@ -1,5 +1,365 @@
-*{
+@charset "UTF-8";
+
+/* Estilos Gerais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image:linear-gradient(to right, #1db031, rgb(168, 182, 21)); /* Cor de fundo geral */
+    /*flex-direction: colum;*/
+   /* min-height: 100vh;*/
+}
+
+.container {
+    display: flex;
+    flex-grow: 0;
+    max-width: 1200px;
+    margin: 0px auto;
+    padding: 50px;
+   /* gap: 2px; /* Espaço entre os componentes */
+}
+
+.app-header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.app-header h1 {
+    font-size: 1.2em;
+    color: #272323;
+    margin: 0;
+}
+
+.app-header .back-icon {
+    font-size: 1.5em;
+    text-decoration: none;
+    
+    color: #000000;
+    margin-right: 15px;
+}
+
+/*.app-header .header-icons img 
+    height: 20px;
+    margin-left: 15px;
+*/
+
+/* Formulário (Criar Conta / Entrar) */
+.form-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 1px;
+    box-shadow: 3 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 10; /* Permite que ocupe espaço */
+    max-width: 500px; /* Largura máxima para o formulário */
+}
+
+.form-container h2 {
+    color: #000000;
+    margin-bottom: 25px;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif, 10px;
+}
+
+.form-group {
+    margin-bottom: 5px;
+}
+
+.form-group label {
+    padding-bottom: 10px;
+    display: block;
+    margin-bottom: 1px;
+    color: #1b1919;
+    font-family:'Times New Roman', Times, serif, 1px;
+    
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ececec;
+    /*border-radius: 4px;*/
+    box-sizing: border-box; /* Inclui padding na largura total */
+    font-size: 1em;
+}
+
+.btn-primary {
+    background-color: #007c21; /* Verde */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1em;
+    margin-top: 30px;
+    
+}
+
+.btn-primary:hover {
+    background-image:linear-gradient(rgb(39, 119, 86));
+}
+
+.login-link, .signup-link, .forgot-password-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.login-link a, .signup-link a, .forgot-password-link a {
+    color: #00ff08;
+    text-decoration: none;
+}
+
+.login-link a:hover, .signup-link a:hover, .forgot-password-link a:hover {
+    text-decoration: underline;
+}
+
+/* Prévia do Aplicativo (simulação do celular) */
+.app-preview {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px; /* Altura mínima para a prévia */
+    background-image:linear-gradient( #01911e); /* Cor de fundo para a seção de prévia */
+    border-radius: 1px;
+    position: relative; /* Para posicionar as imagens overlay */
+}
+
+.phone-frame {
+    width: 280px; /* Largura de um celular simulado */
+    height: 550px; /* Altura de um celular simulado */
+    background-color: #12e852;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Para garantir que as imagens fiquem dentro da moldura */
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.app-screenshot {
+    width: calc(100% - 10px); /* Ajusta para ter uma pequena borda preta */
+    height: calc(100% - 10px);
+    object-fit: cover;
+    border-radius: 25px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+/* Imagens sobrepostas na prévia do app */
+.app-logo-overlay {
+    position: absolute;
+    top: 57px; /* Ajuste a posição conforme sua imagem real */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px; /* Ajuste o tamanho */
+    z-index: 2; /* Para ficar acima da screenshot */
+}
+
+.person-illustration-overlay {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 200px; /* Ajuste o tamanho */
+    z-index: 2;
+}
+
+/* Admin Dashboard - Layout de 3 colunas */
+.admin-dashboard {
+    display: grid;
+    grid-template-columns: 200px 1fr 250px; /* Sidebar, Conteúdo Principal, Histórico */
+    grid-template-rows: auto;
+    gap: 20px;
+    align-items: start; /* Alinha os itens ao topo */
+}
+
+.sidebar {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.sidebar ul {
+    list-style: none;
     padding: 0;
     margin: 0;
-    
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 5px;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    background-color: #e6e6e6;
+    color: #4CAF50;
+}
+
+.content-area {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Formulário de evento e preview */
+    gap: 20px;
+}
+
+.event-creation-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    grid-column: 1 / 2; /* Ocupa a primeira coluna */
+}
+
+.component-preview {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+    grid-column: 2 / 3; /* Ocupa a segunda coluna */
+    min-width: 250px; /* Largura mínima para a prévia */
+}
+
+.phone-frame-small {
+    width: 200px;
+    height: 400px;
+    background-color: #000;
+    border-radius: 20px;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.app-preview-card-img {
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    object-fit: cover;
+    border-radius: 15px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+}
+
+.preview-content {
+    position: absolute;
+    top: 20px; /* Ajuste conforme a imagem */
+    width: 100%;
+    color: white; /* Cor do texto dentro do preview do app */
+    text-align: center;
+    z-index: 2;
+}
+
+.preview-content h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.speaker-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 10px;
+    border: 2px solid #fff;
+}
+
+
+.history-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    grid-column: 3 / 4; /* Ocupa a terceira coluna */
+}
+
+.history-items {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.history-item img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.history-item p {
+    margin: 0;
+    flex-grow: 1;
+    font-weight: bold;
+}
+
+.history-item span {
+    font-size: 0.8em;
+    color: #666;
+}
+
+/* Seções Inferiores (Expositores, Agenda) */
+.bottom-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas para expositores e agenda */
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.exhibitors-section, .agenda-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Media Queries para Responsividade Básica (Exemplo) */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .admin-dashboard {
+        grid-template-columns: 1fr; /* Coluna única em telas menores */
+    }
+
+    .content-area {
+        grid-template-columns: 1fr;
+    }
+
+    .bottom-sections {
+        grid-template-columns: 1fr;
+    }
+
+    .app-preview, .form-container, .sidebar, .event-creation-form,
+    .component-preview, .history-section, .exhibitors-section, .agenda-section {
+        max-width: 100%;
+    }
 }
