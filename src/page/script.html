@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://127.0.0.1:5500/adm-3.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agropec ADM - Painel de Controle</title>
+    <link rel="stylesheet" href="../css/style.css"> </head>
+    <link rel="stylesheet" href="./Agropec ADM - Painel de Controle_files/style.css">
+    <style>
+        /* Basic CSS for layout - You'd use a CSS framework like Bootstrap or write more extensive CSS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image:-o-linear-gradient(to right, blue, blue, rgb(13, 13, 74)) #146610;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 20px;
+        }
+        .sidebar {
+            flex: 0 0 200px;
+            background-image:linear-gradient(rgb(2, 126, 82), rgb(0, 89, 61)) ;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #000000;
+            display: block;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        .sidebar ul li a:hover, .sidebar ul li a.active {
+            background-image:linear-gradient(to right,#5d5d5d,);
+            color: rgb(253, 253, 253);
+        }
+        .main-content {
+            flex-grow: 1;
+        }
+        .section {
+            display: none; /* Hide all sections by default */
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            background-color: #fff;
+        }
+        .section.active {
+            display: block; /* Show active section */
+        }
+        h2 {
+            color: #333;
+            margin-top: 0;
+        }
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        form input[type="text"],
+        form input[type="date"],
+        form input[type="time"],
+        form textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        form button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        form button:hover {
+            background-color: #218838;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .data-table th {
+            background-color: #f2f2f2;
+        }
+        .action-buttons button {
+            margin-right: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .edit-btn { background-color: #007bff; color: white; border: none; border-radius: 3px; }
+        .delete-btn { background-color: #dc3545; color: white; border: none; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="http://127.0.0.1:5500/adm-3.html#" class="nav-link active" data-target="eventos">Eventos</a></li>
+                <li><a href="http://127.0.0.1:5500/adm-3.html#" class="nav-link" data-target="estandes">Estandes</a></li>
+                <li><a href="http://127.0.0.1:5500/adm-3.html#" class="nav-link" data-target="mensagens">Mensagens</a></li>
+                <li><a href="http://127.0.0.1:5500/adm-3.html#" class="nav-link" data-target="patrocinadores">Patrocinadores</a></li>
+                <li><a href="http://127.0.0.1:5500/adm-3.html#" class="nav-link" data-target="historico">Histórico</a></li>
+                <li><a href="http://127.0.0.1:5500/adm-3.html#" class="nav-link" data-target="prévia">Prévia</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <div id="eventos" class="section active">
+                <h2>Gerenciar Eventos</h2>
+                <form id="form-evento">
+
+                    <input type="hidden" id="evento-id" />
+
+                    <label for="nome-evento">Nome do Evento:</label>
+                    <input type="text" id="nome-evento" name="nomeEvento" required="">
+
+                    <label for="descricao-evento">Descrição:</label>
+                    <textarea id="descricao-evento" name="descricaoEvento" rows="4"></textarea>
+
+                    <label for="data-evento">Data:</label>
+                    <input type="date" id="data-evento" name="dataEvento" required="">
+
+                    <label for="hora-evento">Hora:</label>
+                    <input type="time" id="hora-evento" name="horaEvento">
+
+                    <label for="local-evento">Local:</label>
+                    <input type="text" id="local-evento" name="localEvento">
+
+                    <button type="submit">Adicionar/Atualizar Evento</button>
+                </form>
+
+                <h3>Eventos Existentes</h3>
+                <table class="data-table" id="tabela-eventos">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data</th>
+                            <th>Local</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Palestra sobre Sustentabilidade</td>
+                            <td>2025-08-10</td>
+                            <td>Auditório Principal</td>
+                            <td class="action-buttons">
+                                <button class="edit-btn">Editar</button>
+                                <button class="delete-btn">Excluir</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Workshop de Inovação Agrícola</td>
+                            <td>2025-08-12</td>
+                            <td>Sala de Conferências A</td>
+                            <td class="action-buttons">
+                                <button class="edit-btn">Editar</button>
+                                <button class="delete-btn">Excluir</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="estandes" class="section">
+                <h2>Gerenciar Estandes</h2>
+                <form id="formStand">
+
+                    <input type="hidden" id="estande-id" />
+
+                    <label for="nome-empresa-estande">Nome da Empresa:</label>
+                    <input type="text" id="nome-empresa-estande" name="nomeEmpresaEstande" required="">
+
+                    <label for="numero-estande">Número do Estande:</label>
+                    <input type="text" id="numero-estande" name="numeroEstande" required="">
+
+                    <label for="responsavel-estande">Responsável:</label>
+                    <input type="text" id="responsavel-estande" name="responsavelEstande">
+
+                    <label for="setor-estande">Setor:</label>
+                    <input type="text" id="setor-estande" name="setorEstande">
+
+                    <button type="submit">Adicionar/Atualizar Estande</button>
+                </form>
+
+                <h3>Estandes Existentes</h3>
+                <table class="data-table" id="tabela-estandes">
+                    <thead>
+                        <tr>
+                            <th>Empresa</th>
+                            <th>Nº Estande</th>
+                            <th>Setor</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="mensagens" class="section">
+                <h2>Gerenciar Mensagens</h2>
+                <form id="form-mensagem">
+                    <label for="remetente-mensagem">Remetente:</label>
+                    <input type="text" id="remetente-mensagem" name="remetenteMensagem" required="">
+
+                    <label for="conteudo-mensagem">Conteúdo da Mensagem:</label>
+                    <textarea id="conteudo-mensagem" name="conteudoMensagem" rows="5" required=""></textarea>
+
+                    <label for="data-envio-mensagem">Data de Envio:</label>
+                    <input type="date" id="data-envio-mensagem" name="dataEnvioMensagem" readonly="" value="2025-06-25">
+
+                    <button type="submit">Enviar Mensagem</button>
+                </form>
+
+                <h3>Mensagens Recebidas/Enviadas</h3>
+                <table class="data-table" id="tabela-mensagens">
+                    <thead>
+                        <tr>
+                            <th>Remetente</th>
+                            <th>Conteúdo</th>
+                            <th>Data</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Suporte Agropec</td>
+                            <td>Bem-vindo ao painel de administração!</td>
+                            <td>2025-06-24</td>
+                            <td class="action-buttons">
+                                <button class="delete-btn">Excluir</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="patrocinadores" class="section">
+                <h2>Gerenciar Patrocinadores</h2>
+                <form id="form-patrocinador">
+                    <label for="nome-patrocinador">Nome do Patrocinador:</label>
+                    <input type="text" id="nome-patrocinador" name="nomePatrocinador" required="">
+
+                    <label for="logo-patrocinador">URL do Logo:</label>
+                    <input type="text" id="logo-patrocinador" name="logoPatrocinador" placeholder="Ex: https://exemplo.com/logo.png">
+
+                    <label for="nivel-patrocinador">Nível de Patrocínio:</label>
+                    <input type="text" id="nivel-patrocinador" name="nivelPatrocinador" placeholder="Ex: Ouro, Prata, Bronze">
+
+                    <label for="link-patrocinador">Link do Site:</label>
+                    <input type="url" id="link-patrocinador" name="linkPatrocinador" placeholder="Ex: https://www.sitepatrocinador.com">
+
+                    <button type="submit">Adicionar/Atualizar Patrocinador</button>
+                </form>
+
+                <h3>Patrocinadores Existentes</h3>
+                <table class="data-table" id="tabela-patrocinadores">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Logo</th>
+                            <th>Nível</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--<tr>
+                            <td>AgroBank S.A.</td>
+                            <td><img src="https://via.placeholder.com/50x20?text=Logo" alt="Logo AgroBank"></td>
+                            <td>Ouro</td>
+                            <td class="action-buttons">
+                                <button class="edit-btn">Editar</button>
+                                <button class="delete-btn">Excluir</button>
+                            </td>
+                        </tr>-->
+                    </tbody>
+                </table>
+            </div>
+            <div id="historico">
+
+            </div>
+            <div></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('data-envio-mensagem').value = today;
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = e.target.dataset.target;
+
+                    // Deactivate all links and hide all sections
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    sections.forEach(sec => sec.classList.remove('active'));
+
+                    // Activate clicked link and show target section
+                    e.target.classList.add('active');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+
+            // --- Client-Side Form Handling (for demonstration, real implementation needs backend) ---
+
+            // Helper function to add a row to a table
+            function addRowToTable(tableId, data) {
+                const tableBody = document.getElementById(tableId).querySelector('tbody');
+                const newRow = tableBody.insertRow();
+                data.forEach(item => {
+                    const cell = newRow.insertCell();
+                    if (typeof item === 'object' && item.type === 'image') {
+                        const img = document.createElement('img');
+                        img.src = item.src;
+                        img.alt = item.alt;
+                        img.style.width = '50px'; // Example styling
+                        img.style.height = '20px';
+                        cell.appendChild(img);
+                    } else {
+                        cell.textContent = item;
+                    }
+                });
+                const actionsCell = newRow.insertCell();
+                actionsCell.className = 'action-buttons';
+                actionsCell.innerHTML = '<button class="edit-btn">Editar</button> <button class="delete-btn">Excluir</button>';
+
+                // Add event listeners for edit/delete buttons (these would trigger backend calls)
+                actionsCell.querySelector('.edit-btn').addEventListener('click', () => alert('Funcionalidade de Edição (requer backend)'));
+                actionsCell.querySelector('.delete-btn').addEventListener('click', (e) => {
+                    if (confirm('Tem certeza que deseja excluir este item?')) {
+                        e.target.closest('tr').remove(); // Remove row from DOM (client-side only)
+                        // In a real app, you'd send a DELETE request to the backend here
+                        alert('Item excluído (apenas no front-end para demonstração).');
+                    }
+                });
+            }
+
+            // Event form submission
+            //document.getElementById('form-evento').addEventListener('submit', (e) => {
+                //e.preventDefault();
+                //const nome = document.getElementById('nome-evento').value;
+                //const data = document.getElementById('data-evento').value;
+                //const local = document.getElementById('local-evento').value;
+
+                // In a real application, you would send this data to a backend API
+                // Example: fetch('/api/eventos', { method: 'POST', body: JSON.stringify({ nome, data, local }) })
+                // .then(response => response.json())
+                // .then(data => { /* Update table with response from backend */ })
+                // .catch(error => console.error('Erro:', error));
+
+                //addRowToTable('tabela-eventos', [nome, data, local]);
+                //alert('Evento adicionado/atualizado (apenas no front-end para demonstração).');
+                //e.target.reset(); // Clear form
+            //});
+
+            // Estande form submission
+            //document.getElementById('form-estande').addEventListener('submit', (e) => {
+                //e.preventDefault();
+                //const empresa = document.getElementById('nome-empresa-estande').value;
+                //const numero = document.getElementById('numero-estande').value;
+                //const setor = document.getElementById('setor-estande').value;
+
+                //addRowToTable('tabela-estandes', [empresa, numero, setor]);
+                //alert('Estande adicionado/atualizado (apenas no front-end para demonstração).');
+                //e.target.reset();
+            //});
+
+            // Mensagem form submission
+            //document.getElementById('form-mensagem').addEventListener('submit', (e) => {
+                //e.preventDefault();
+                //const remetente = document.getElementById('remetente-mensagem').value;
+                //const conteudo = document.getElementById('conteudo-mensagem').value;
+                //const dataEnvio = document.getElementById('data-envio-mensagem').value;
+
+                //addRowToTable('tabela-mensagens', [remetente, conteudo, dataEnvio]);
+                //alert('Mensagem enviada (apenas no front-end para demonstração).');
+                //e.target.reset();
+                //document.getElementById('data-envio-mensagem').value = today; // Reset date
+            //});
+
+            // Patrocinador form submission
+            //document.getElementById('form-patrocinador').addEventListener('submit', (e) => {
+                //e.preventDefault();
+                //const nome = document.getElementById('nome-patrocinador').value;
+                //const logoUrl = document.getElementById('logo-patrocinador').value;
+                //const nivel = document.getElementById('nivel-patrocinador').value;
+
+                //addRowToTable('tabela-patrocinadores', [nome, { type: 'image', src: logoUrl, alt: 'Logo' + nome }, nivel]);
+                //alert('Patrocinador adicionado/atualizado (apenas no front-end para demonstração).');
+                //e.target.reset();
+            //});
+
+            // Simulate loading initial data (in a real app, this comes from backend)
+            // This is just to make the tables not empty initially
+            // You'd fetch('/api/eventos').then(...) here
+            // You'd fetch('/api/estandes').then(...) here
+            // etc.
+        });
+    </script>
+<!-- Code injected by live-server -->
+    <script>
+        // <![CDATA[  <-- For SVG support
+        if ('WebSocket' in window) {
+            (function () {
+                function refreshCSS() {
+                    var sheets = [].slice.call(document.getElementsByTagName("link"));
+                    var head = document.getElementsByTagName("head")[0];
+                    for (var i = 0; i < sheets.length; ++i) {
+                        var elem = sheets[i];
+                        var parent = elem.parentElement || head;
+                        parent.removeChild(elem);
+                        var rel = elem.rel;
+                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+                        }
+                        parent.appendChild(elem);
+                    }
+                }
+                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+                var address = protocol + window.location.host + window.location.pathname + '/ws';
+                var socket = new WebSocket(address);
+                socket.onmessage = function (msg) {
+                    if (msg.data == 'reload') window.location.reload();
+                    else if (msg.data == 'refreshcss') refreshCSS();
+                };
+                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                    console.log('Live reload enabled.');
+                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+                }
+            })();
+        }
+        else {
+            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+        }
+    </script>
+    <script type="module" src="../js/script.js"></script>
+    <script type="module" src="../js/main.js"></script>
+    <script type="module" src="../js/mainn.js"></script>
+</body>
+</html>
